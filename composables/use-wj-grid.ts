@@ -8,9 +8,9 @@ import { InputDate } from '@grapecity/wijmo.input'
 import { CollectionView, PopupPosition, Tooltip } from '@grapecity/wijmo'
 import { Selector } from '@grapecity/wijmo.grid.selector'
 import { FlexGrid } from '@grapecity/wijmo.grid'
+import * as wjGrid from '@grapecity/wijmo.grid'
 
 interface State {
-  selector: Selector | null
   selectedItems: []
   data: {}[]
   items: { cd: string; value: string }[]
@@ -20,7 +20,6 @@ interface State {
 
 export default function useWjGrid() {
   const state = reactive<State>({
-    selector: null,
     selectedItems: [],
     data: [
       { cd: '0001', check: false, date: new Date() },
@@ -81,6 +80,14 @@ export default function useWjGrid() {
     })
   }
   const initGrid = (grid: FlexGrid) => {
+    const selector = new Selector(grid, {
+      itemChecked: () => {
+        state.selectedItems = grid.rows.filter((r) => r.isSelected)
+      },
+    })
+    const extraColumn = new wjGrid.Column()
+    const panel = grid.rowHeaders
+    panel.columns.splice(0, 0, extraColumn)
     for (let r = 0; r < grid.rowHeaders.rows.length; r++) {
       grid.rowHeaders.setCellData(r, 0, r + 1)
     }
