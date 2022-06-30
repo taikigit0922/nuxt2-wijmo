@@ -20,7 +20,7 @@
         <wj-flex-grid-column binding="check" header="チェック" :width="100" />
         <wj-flex-grid-column
           binding="date"
-          header="日付"
+          header="日付です"
           format="d"
           :editor="editors.inputDate"
           width="*"
