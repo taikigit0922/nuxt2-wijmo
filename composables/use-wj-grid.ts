@@ -194,7 +194,19 @@ export default function useWjGrid() {
     state.row.row += 1
   }
   // 行コピー＆挿入
-  const copyInsert = () => {}
+  const copyInsert = () => {
+    console.log('選択行', state.row)
+    console.log('選択データ', state.data[state.row.row])
+    state.data.splice(state.row.row, 0, state.data[state.row.row])
+    // 挿入後、フォーカスを下に移動
+    state.flexGrid.selection = new wjGrid.CellRange(
+      state.row.row + 1,
+      state.row.col,
+      state.row.row + 1,
+      state.row.col
+    )
+    state.row.row += 1
+  }
   return {
     ...toRefs(state),
     itemMap,
