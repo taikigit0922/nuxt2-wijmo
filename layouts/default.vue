@@ -27,6 +27,9 @@
         <Nuxt />
       </v-container>
     </v-main>
+    <!-- <v-dialog v-model="dialog">
+      <list-dialog></list-dialog>
+    </v-dialog> -->
   </v-app>
 </template>
 
@@ -47,6 +50,12 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'wj-grid-sample2',
           to: '/wj-grid-sample2',
+        },
+
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'wj-grid-sample3',
+          to: '/wj-grid-sample3',
         },
       ],
       title: 'nuxt2 + wijmo',

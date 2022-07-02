@@ -1,5 +1,10 @@
 <template>
-  <wj-grid-table></wj-grid-table>
+  <v-card>
+    <v-card-title>一覧</v-card-title>
+    <v-card-text>
+      <wj-grid-table></wj-grid-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts">
