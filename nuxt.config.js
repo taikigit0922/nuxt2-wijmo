@@ -24,7 +24,11 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    {src: './node_modules/@grapecity/wijmo.vue2.grid',mode: 'client'},
+    {src: './node_modules/@grapecity/wijmo.cultures/wijmo.culture.ja',mode: 'client'},
+    {src: './node_modules/@grapecity/wijmo.styles/wijmo.css',mode: 'client'},
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

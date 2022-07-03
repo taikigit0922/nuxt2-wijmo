@@ -28,7 +28,6 @@
         />
         <wj-flex-grid-column binding="cd2" header="cd2" width="*">
           <wj-flex-grid-cell-template v-slot="cell" cell-type="Cell">
-            <span class="color-tile"></span>
             <v-icon>mdi-magnify</v-icon>{{ cell.item.cd2 }}
           </wj-flex-grid-cell-template>
         </wj-flex-grid-column>
@@ -71,7 +70,7 @@ export default defineComponent({
   },
   setup() {
     const {
-      flexGrid,
+      gridData,
       selectedItem,
       data,
       itemMap,
@@ -97,7 +96,7 @@ export default defineComponent({
       data.value[rowIndex].cd = value
 
       dialog.value = false
-      flexGrid.value.selection = new wjGrid.CellRange(
+      gridData.value.selection = new wjGrid.CellRange(
         row.value.row,
         row.value.col,
         row.value.row,
@@ -110,7 +109,7 @@ export default defineComponent({
       console.log(value)
 
       dialog2.value = false
-      flexGrid.value.selection = new wjGrid.CellRange(
+      gridData.value.selection = new wjGrid.CellRange(
         row.value.row,
         row.value.col,
         row.value.row,
@@ -119,7 +118,7 @@ export default defineComponent({
       console.log('undifined')
     }
     return {
-      flexGrid,
+      gridData,
       selectedItem,
       data,
       itemMap,
