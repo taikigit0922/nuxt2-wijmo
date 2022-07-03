@@ -7,12 +7,13 @@ import {
 } from '@nuxtjs/composition-api'
 import { InputDate } from '@grapecity/wijmo.input'
 import { CollectionView, PopupPosition, Tooltip } from '@grapecity/wijmo'
+import { FlexGridFilter } from '@grapecity/wijmo.grid.filter';
 import { Selector } from '@grapecity/wijmo.grid.selector'
 import { FlexGrid } from '@grapecity/wijmo.grid'
 import * as wjGrid from '@grapecity/wijmo.grid'
 
 interface State {
-  gridData: any | any[]
+  flexGrid: any | any[]
   selectedItems: []
   selectedItem: {}
   data: {
@@ -33,11 +34,12 @@ interface State {
     row: number
     col: number
   }
+  filter:FlexGridFilter | undefined
 }
 
 export default function useWjGrid() {
   const state = reactive<State>({
-    gridData: '',
+    flexGrid: '',
     selectedItems: [],
     selectedItem: {},
     data: [
@@ -78,6 +80,7 @@ export default function useWjGrid() {
       row: 0,
       col: 0,
     },
+    filter:undefined
   })
   for (let i = 0; i < 1000; i++) {
     state.data.push({
@@ -120,8 +123,8 @@ export default function useWjGrid() {
     })
   }
   const initGrid = (grid: FlexGrid) => {
-    state.gridData = grid
-    console.log(state.gridData)
+    state.flexGrid = grid
+    console.log(state.flexGrid)
     // 行選択のチェックボックスの設定
     const selector = new Selector(grid, {
       itemChecked: () => {
@@ -160,16 +163,18 @@ export default function useWjGrid() {
       }
     })
 
+    
+
     grid.selectionMode = 4
   }
   const _updateCurrentInfo = () => {
-    state.selectedItem = state.gridData.collectionView.currentItem
+    state.selectedItem = state.flexGrid.collectionView.currentItem
   }
   // 選択中の行を上の行と入れ替え
   const toUpper = () => {
-    state.gridData.rows.moveElement(state.row.row, state.row.row - 1)
+    state.flexGrid.rows.moveElement(state.row.row, state.row.row - 1)
     // 入れ替え後、フォーカスを上に移動
-    state.gridData.selection = new wjGrid.CellRange(
+    state.flexGrid.selection = new wjGrid.CellRange(
       state.row.row - 1,
       state.row.col,
       state.row.row - 1,
@@ -179,9 +184,9 @@ export default function useWjGrid() {
   }
   // 選択中の行を下の行と入れ替え
   const toLower = () => {
-    state.gridData.rows.moveElement(state.row.row, state.row.row + 1)
+    state.flexGrid.rows.moveElement(state.row.row, state.row.row + 1)
     // 入れ替え後、フォーカスを下に移動
-    state.gridData.selection = new wjGrid.CellRange(
+    state.flexGrid.selection = new wjGrid.CellRange(
       state.row.row + 1,
       state.row.col,
       state.row.row + 1,
@@ -195,13 +200,18 @@ export default function useWjGrid() {
     console.log('選択データ', state.data[state.row.row])
     state.data.splice(state.row.row, 0, state.data[state.row.row])
     // 挿入後、フォーカスを下に移動
-    state.gridData.selection = new wjGrid.CellRange(
+    state.flexGrid.selection = new wjGrid.CellRange(
       state.row.row + 1,
       state.row.col,
       state.row.row + 1,
       state.row.col
     )
     state.row.row += 1
+  }
+  // フィルターリセット
+  const clearFilter = () => {
+    console.log('filter')
+    state.flexGrid.
   }
   return {
     ...toRefs(state),
@@ -211,7 +221,7 @@ export default function useWjGrid() {
     initGrid,
     toUpper,
     toLower,
-    copyInsert,
+    copyInsert,clearFilter
   }
 }
 

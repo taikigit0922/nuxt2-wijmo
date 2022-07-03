@@ -37,6 +37,7 @@
       <v-btn class="success" @click="toUpper">上に移動</v-btn>
       <v-btn class="success" @click="toLower">下に移動</v-btn>
       <v-btn class="success" @click="copyInsert">行コピー</v-btn>
+      <v-btn class="success" @click="clearFilter">フィルター解除</v-btn>
     </div>
     <v-dialog v-model="dialog" width="400px">
       <list-dialog
@@ -70,7 +71,7 @@ export default defineComponent({
   },
   setup() {
     const {
-      gridData,
+      flexGrid,
       selectedItem,
       data,
       itemMap,
@@ -85,7 +86,7 @@ export default defineComponent({
       initGrid,
       toUpper,
       toLower,
-      copyInsert,
+      copyInsert,clearFilter
     } = inject(WjGridKey) as WjGridType
     const cancelClick = () => {
       dialog.value = false
@@ -96,7 +97,7 @@ export default defineComponent({
       data.value[rowIndex].cd = value
 
       dialog.value = false
-      gridData.value.selection = new wjGrid.CellRange(
+      flexGrid.value.selection = new wjGrid.CellRange(
         row.value.row,
         row.value.col,
         row.value.row,
@@ -109,7 +110,7 @@ export default defineComponent({
       console.log(value)
 
       dialog2.value = false
-      gridData.value.selection = new wjGrid.CellRange(
+      flexGrid.value.selection = new wjGrid.CellRange(
         row.value.row,
         row.value.col,
         row.value.row,
@@ -118,7 +119,7 @@ export default defineComponent({
       console.log('undifined')
     }
     return {
-      gridData,
+      flexGrid,
       selectedItem,
       data,
       itemMap,
@@ -136,7 +137,7 @@ export default defineComponent({
       define2,
       toUpper,
       toLower,
-      copyInsert,
+      copyInsert,clearFilter
     }
   },
 })
